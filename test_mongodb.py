@@ -25,9 +25,9 @@ from app.infrastructure.azure_openai import llm
 
 # print(document_intelligence_client)
 
-# parser = ParserService()
-# text = parser.parse_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
-# print(text)
+parser = ParserService()
+text = parser.parse_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
+print(text)
 
-response = llm.invoke("Reply with exactly: Azure OpenAI is working")
-print(response.content)
+# response = llm.invoke("Reply with exactly: Azure OpenAI is working")
+# print(response.content)

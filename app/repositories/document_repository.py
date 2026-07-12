@@ -16,14 +16,14 @@ class DocumentRepository:
         return str(result.inserted_id)
 
     def get_document_by_id(self, document_id: str):
-        print("Searching for:", document_id)
+        #print("Searching for:", document_id)
         document = document_collection.find_one(
         {
             "documentId": document_id
         }
     )
 
-        print("Result:", document)
+        #print("Result:", document)
         return document
     
 
@@ -41,7 +41,8 @@ class DocumentRepository:
                 "$set":
                 {
                     "ocrText": ocr_text,
-                    "status":  DOCUMENT_STATUS_OCR_COMPLETED
+                    "status":  DOCUMENT_STATUS_OCR_COMPLETED,
+                    "modified_at": datetime.utcnow()
                 }
             }
         )
@@ -52,15 +53,17 @@ class DocumentRepository:
         parsed_data: dict
     ):
 
-        document_collection.update_one(
+        result = document_collection.update_one(
             {
                 "documentId": document_id
             },
             {
-                "$set":
-                {
-                    "parsedData": parsed_data,
-                    "status": DOCUMENT_STATUS_PARSED
+                "$set": {
+                    "model": "gpt-4.1-mini",
+                    "version": "1.0",
+                    "parsedAt": datetime.utcnow(),
+                    "modified_at": datetime.utcnow()
                 }
             }
         )
+        return result.modified_count == 1

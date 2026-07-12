@@ -1,5 +1,9 @@
 from app.repositories.document_repository import DocumentRepository
-
+from app.prompts.parser_prompt import build_parser_prompt
+from app.infrastructure.azure_openai import llm
+from app.services.document_type_detector import DocumentTypeDetector
+from app.prompts.prompt_factory import PromptFactory
+import json
 
 class ParserService:
 
@@ -14,7 +18,13 @@ class ParserService:
             raise Exception("Document not found")
 
         ocr_text = document.get("ocrText")
-
+        
         if not ocr_text:
             raise Exception("OCR not completed.")
-        return ocr_text
+        document_type = DocumentTypeDetector.detect(ocr_text)
+        prompt = PromptFactory.get_prompt(document_type, ocr_text)
+        response = llm.invoke(prompt)
+        parsed_data = json.loads(response.content)
+        #print(response.content)
+        #return ocr_text
+        return parsed_data
