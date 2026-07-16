@@ -3,6 +3,7 @@ from app.repositories.document_repository import DocumentRepository
 from app.services.ocr_service import OCRService
 from app.services.parser_service import ParserService
 from app.infrastructure.azure_openai import llm
+from app.services.validation_service import ValidationService
 
 #print("Connected successfully!")
 #print("Database Name:", database.name)
@@ -25,9 +26,14 @@ from app.infrastructure.azure_openai import llm
 
 # print(document_intelligence_client)
 
-parser = ParserService()
-text = parser.parse_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
-print(text)
+# parser = ParserService()
+# text = parser.parse_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
+# print(text)
 
 # response = llm.invoke("Reply with exactly: Azure OpenAI is working")
 # print(response.content)
+
+#validation test
+validation_service = ValidationService()
+validation_result = validation_service.validate_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
+print(validation_result)

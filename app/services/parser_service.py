@@ -3,6 +3,7 @@ from app.prompts.parser_prompt import build_parser_prompt
 from app.infrastructure.azure_openai import llm
 from app.services.document_type_detector import DocumentTypeDetector
 from app.prompts.prompt_factory import PromptFactory
+from app.validators.parser_response_validator import ParserResponseValidator
 import json
 
 class ParserService:
@@ -25,6 +26,10 @@ class ParserService:
         prompt = PromptFactory.get_prompt(document_type, ocr_text)
         response = llm.invoke(prompt)
         parsed_data = json.loads(response.content)
+
+        ParserResponseValidator.validate(parsed_data)
+
+        self.document_repository.update_document_parsed_data(document_id, parsed_data)
         #print(response.content)
         #return ocr_text
         return parsed_data

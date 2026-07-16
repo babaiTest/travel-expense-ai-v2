@@ -1,13 +1,26 @@
 from datetime import datetime
 
 from app.infrastructure.mongodb import document_collection
-from app.constants import DOCUMENT_STATUS_OCR_COMPLETED,DOCUMENT_STATUS_PARSED
+from app.constants import DOCUMENT_STATUS_OCR_COMPLETED,DOCUMENT_STATUS_PARSED,DOCUMENT_STATUS_IN_PROGRESS
 import json
 
 
 class DocumentRepository:
 
+    
+
     def save_document(self,document: dict):
+
+        document["processing"] = {
+        "ocrCompleted": False,
+        "parserCompleted": False,
+        "validationCompleted": False,
+        "timelineCompleted": False,
+        "fraudCompleted": False,
+        "embeddingCompleted": False
+        }
+
+        document["modified_at"] = datetime.utcnow()
 
         document["created_at"] = datetime.utcnow()
 
@@ -58,12 +71,14 @@ class DocumentRepository:
                 "documentId": document_id
             },
             {
-                "$set": {
-                    "model": "gpt-4.1-mini",
-                    "version": "1.0",
-                    "parsedAt": datetime.utcnow(),
-                    "modified_at": datetime.utcnow()
-                }
+                "$set":
+                    {
+                        "parsedData": parsed_data,
+
+                        "status": DOCUMENT_STATUS_PARSED,                        
+
+                        "modified_at": datetime.utcnow()
+                    }
             }
         )
         return result.modified_count == 1
