@@ -82,3 +82,34 @@ class DocumentRepository:
             }
         )
         return result.modified_count == 1
+    
+    def update_validation_result(
+        self,
+        document_id: str,
+        validation_result: dict
+):
+
+        document_collection.update_one(
+            {
+                "documentId": document_id
+            },
+            {
+                "$set":
+                {
+                    "validation": validation_result,
+                    "modified_at": datetime.utcnow()
+                }
+            }
+        )
+
+    def get_documents_by_travel_id(
+    self,
+    travel_id: str
+    ):
+        return list(
+        document_collection.find(
+            {
+                "travelId": travel_id
+            }
+        )
+    )

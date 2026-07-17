@@ -23,6 +23,10 @@ class ValidationService:
 
         if document_type == "FlightTicket":
             result = FlightValidator.validate(data)
+            self.repository.update_validation_result(
+            document_id,
+            result
+        )
 
         else:
 
