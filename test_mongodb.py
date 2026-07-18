@@ -4,6 +4,7 @@ from app.services.ocr_service import OCRService
 from app.services.parser_service import ParserService
 from app.infrastructure.azure_openai import llm
 from app.services.validation_service import ValidationService
+from app.services.timeline_service import TimelineService
 
 #print("Connected successfully!")
 #print("Database Name:", database.name)
@@ -34,6 +35,11 @@ from app.services.validation_service import ValidationService
 # print(response.content)
 
 #validation test
-validation_service = ValidationService()
-validation_result = validation_service.validate_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
-print(validation_result)
+# validation_service = ValidationService()
+# validation_result = validation_service.validate_document("4279479d-8031-4e0b-aa13-f6776ff3fa57")
+# print(validation_result)
+
+#timeline test
+timeline_service = TimelineService()
+timeline = timeline_service.build_timeline("TRV1001")
+print(timeline)
