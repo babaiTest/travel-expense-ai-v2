@@ -1,3 +1,21 @@
-Testing of TimelineService is pending -completed
+Looking at your output, I noticed one thing that I'd improve.
 
-before entering AI fraud detection, understand the entire architecture
+Currently, TravelProcessingService always executes:
+
+OCR
+↓
+
+Parser
+↓
+
+Validation
+
+for every document.
+
+Imagine a travel claim with 20 uploaded documents.
+
+Every time you click Process Travel, OCR runs again on documents that are already processed.
+
+That's inefficient.
+
+(search for the above texts in chatGPT and add this validation as suggested by chatGPT)
