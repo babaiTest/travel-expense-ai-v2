@@ -5,6 +5,7 @@ from app.services.parser_service import ParserService
 from app.infrastructure.azure_openai import llm
 from app.services.validation_service import ValidationService
 from app.services.timeline_service import TimelineService
+from app.services.travel_processing_service import TravelProcessingService
 
 #print("Connected successfully!")
 #print("Database Name:", database.name)
@@ -40,6 +41,13 @@ from app.services.timeline_service import TimelineService
 # print(validation_result)
 
 #timeline test
-timeline_service = TimelineService()
-timeline = timeline_service.build_timeline("TRV1001")
-print(timeline)
+# timeline_service = TimelineService()
+# timeline = timeline_service.build_timeline("TRV1001")
+# print(timeline)
+
+service = TravelProcessingService()
+result = service.process_travel(
+    "EMP101",
+    "TRV1001"
+)
+print(result)

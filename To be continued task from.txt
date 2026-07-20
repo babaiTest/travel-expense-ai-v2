@@ -1,1 +1,3 @@
-Testing of TimelineService is pending - start from testing TimelineService
+Testing of TimelineService is pending -completed
+
+before entering AI fraud detection, understand the entire architecture

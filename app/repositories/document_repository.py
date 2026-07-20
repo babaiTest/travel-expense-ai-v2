@@ -113,3 +113,18 @@ class DocumentRepository:
             }
         )
     )
+
+    def get_documents_by_user_and_travel(
+    self,
+    user_id: str,
+    travel_id: str
+):
+
+        return list(
+            document_collection.find(
+                {
+                    "userId": user_id,
+                    "travelId": travel_id
+                }
+            )
+        )
