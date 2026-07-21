@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from app.infrastructure.mongodb import document_collection
-from app.constants import DOCUMENT_STATUS_OCR_COMPLETED,DOCUMENT_STATUS_PARSED,DOCUMENT_STATUS_IN_PROGRESS
+from app.constants import DOCUMENT_STATUS_OCR_COMPLETED,DOCUMENT_STATUS_PARSED
 import json
 
 
