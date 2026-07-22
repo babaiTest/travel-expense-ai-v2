@@ -1,21 +1,2 @@
-Looking at your output, I noticed one thing that I'd improve.
-
-Currently, TravelProcessingService always executes:
-
-OCR
-↓
-
-Parser
-↓
-
-Validation
-
-for every document.
-
-Imagine a travel claim with 20 uploaded documents.
-
-Every time you click Process Travel, OCR runs again on documents that are already processed.
-
-That's inefficient.
-
-(search for the above texts in chatGPT and add this validation as suggested by chatGPT)
+Just type "now I have added fraud service, then paste content of fraud_service.py" in chatGPT 
+and follow instructions.
