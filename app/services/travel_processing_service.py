@@ -4,8 +4,9 @@ from app.services.ocr_service import OCRService
 from app.services.parser_service import ParserService
 from app.services.validation_service import ValidationService
 from app.services.timeline_service import TimelineService
+from app.services.fraud_service import FraudService
 
-from app.constants import (
+from app.constants.document_status import (
     DOCUMENT_STATUS_UPLOADED,
     DOCUMENT_STATUS_OCR_COMPLETED,
     DOCUMENT_STATUS_PARSED,
@@ -24,63 +25,93 @@ class TravelProcessingService:
         self.parser_service = ParserService()
         self.validation_service = ValidationService()
         self.timeline_service = TimelineService()
+        self.fraud_service = FraudService()
 
-    def process_single_document(self, document):
+    # ---------------------------------------------------------
+    # Process a single document
+    # ---------------------------------------------------------
 
-        document_id = document["documentId"]
+    def process_single_document(self, document_id: str):
+
+        document = self.repository.get_document_by_id(document_id)
+
+        if not document:
+            raise Exception(f"Document {document_id} not found.")
+
         status = document.get("status", DOCUMENT_STATUS_UPLOADED)
 
-        print(f"\nProcessing document : {document_id}")
+        print(f"\nProcessing Document : {document_id}")
         print(f"Current Status      : {status}")
 
-        # -----------------------------
+        # -----------------------------------------------------
         # OCR
-        # -----------------------------
+        # -----------------------------------------------------
+
         if status == DOCUMENT_STATUS_UPLOADED:
 
             print("Running OCR...")
 
             self.ocr_service.process_document(document_id)
 
-            status = DOCUMENT_STATUS_OCR_COMPLETED
+            document = self.repository.get_document_by_id(document_id)
+            status = document.get("status")
 
-        # -----------------------------
+        # -----------------------------------------------------
         # Parser
-        # -----------------------------
+        # -----------------------------------------------------
+
         if status == DOCUMENT_STATUS_OCR_COMPLETED:
 
             print("Running Parser...")
 
             self.parser_service.parse_document(document_id)
 
-            status = DOCUMENT_STATUS_PARSED
+            document = self.repository.get_document_by_id(document_id)
+            status = document.get("status")
 
-        # -----------------------------
+        # -----------------------------------------------------
         # Validation
-        # -----------------------------
+        # -----------------------------------------------------
+
         if status == DOCUMENT_STATUS_PARSED:
 
             print("Running Validation...")
 
             self.validation_service.validate_document(document_id)
 
-            status = DOCUMENT_STATUS_VALIDATED
+            document = self.repository.get_document_by_id(document_id)
+            status = document.get("status")
+
+        # -----------------------------------------------------
+        # Finished
+        # -----------------------------------------------------
 
         if status == DOCUMENT_STATUS_VALIDATED:
 
-            print("Document processing completed.")
+            print("Document processing completed successfully.")
 
         elif status == DOCUMENT_STATUS_FRAUD_ANALYZED:
 
-            print("Document already fully processed.")
+            print("Document already processed.")
 
         else:
 
             print(f"Document stopped at status : {status}")
 
-    def process_travel(self, user_id: str, travel_id: str):
+        return document
 
-        print(f"\nProcessing Travel : {travel_id}")
+    # ---------------------------------------------------------
+    # Process entire travel
+    # ---------------------------------------------------------
+
+    def process_travel(
+        self,
+        user_id: str,
+        travel_id: str,
+        expense_lines: list
+    ):
+
+        print(f"\n========== Processing Travel {travel_id} ==========")
 
         documents = self.repository.get_documents_by_user_and_travel(
             user_id,
@@ -90,21 +121,34 @@ class TravelProcessingService:
         if not documents:
 
             return {
+
                 "travelId": travel_id,
+
                 "documentsProcessed": 0,
+
                 "documentsSucceeded": 0,
+
                 "documentsFailed": 0,
-                "timeline": []
+
+                "timeline": [],
+
+                "fraudAnalysis": None
             }
 
         succeeded = 0
         failed = 0
 
+        # -----------------------------------------------------
+        # Process every document
+        # -----------------------------------------------------
+
         for document in documents:
 
             try:
 
-                self.process_single_document(document)
+                self.process_single_document(
+                    document["documentId"]
+                )
 
                 succeeded += 1
 
@@ -113,11 +157,36 @@ class TravelProcessingService:
                 failed += 1
 
                 print(
-                    f"Error processing document "
-                    f"{document['documentId']} : {str(ex)}"
+                    f"Failed processing document "
+                    f"{document['documentId']}: {str(ex)}"
                 )
 
-        timeline = self.timeline_service.build_timeline(travel_id)
+        # -----------------------------------------------------
+        # Build Timeline
+        # -----------------------------------------------------
+
+        print("\nBuilding Timeline...")
+
+        timeline = self.timeline_service.build_timeline(
+            travel_id
+        )
+
+        # -----------------------------------------------------
+        # Fraud Detection
+        # -----------------------------------------------------
+
+        print("\nRunning Fraud Detection...")
+
+        fraud_analysis = self.fraud_service.analyze_travel(
+
+            user_id=user_id,
+
+            travel_id=travel_id,
+
+            expense_lines=expense_lines
+        )
+
+        print("\nTravel processing completed successfully.")
 
         return {
 
@@ -129,5 +198,7 @@ class TravelProcessingService:
 
             "documentsFailed": failed,
 
-            "timeline": timeline
+            "timeline": timeline,
+
+            "fraudAnalysis": fraud_analysis
         }
