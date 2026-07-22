@@ -6,7 +6,7 @@ from app.services.validation_service import ValidationService
 from app.services.timeline_service import TimelineService
 from app.services.fraud_service import FraudService
 
-from app.constants.document_status import (
+from app.constants import (
     DOCUMENT_STATUS_UPLOADED,
     DOCUMENT_STATUS_OCR_COMPLETED,
     DOCUMENT_STATUS_PARSED,
