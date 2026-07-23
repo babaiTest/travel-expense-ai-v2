@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import UploadFile
 from typing import List
 import uuid
@@ -76,7 +78,14 @@ async def upload_documents(
             "blobName": blob_name,
             "blobUrl": blob_client.url,
             "contentType": file.content_type,
-            "status": DOCUMENT_STATUS_UPLOADED
+            "status": DOCUMENT_STATUS_UPLOADED,
+
+            "ocrText": None,
+            "parsedData": None,
+            "validation": None,
+
+            "createdAt": datetime.utcnow(),
+            "modifiedAt": datetime.utcnow()
         }
         repository.save_document(document_metadata)
 
@@ -96,11 +105,7 @@ async def upload_documents(
     return uploaded_documents
 
 def download_document(blob_name: str):
-
     blob_client = container_client.get_blob_client(blob_name)
-
     download_stream = blob_client.download_blob()
-
     file_bytes = download_stream.readall()
-
     return file_bytes

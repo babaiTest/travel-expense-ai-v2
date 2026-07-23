@@ -9,3 +9,7 @@ database = client[config.MONGODB_DATABASE]
 document_collection = database[
     config.MONGODB_DOCUMENT_COLLECTION
 ]
+
+travel_collection = database[
+    config.MONGODB_TRAVEL_COLLECTION
+]

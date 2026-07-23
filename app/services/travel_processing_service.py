@@ -119,19 +119,12 @@ class TravelProcessingService:
         )
 
         if not documents:
-
             return {
-
                 "travelId": travel_id,
-
                 "documentsProcessed": 0,
-
                 "documentsSucceeded": 0,
-
                 "documentsFailed": 0,
-
                 "timeline": [],
-
                 "fraudAnalysis": None
             }
 
@@ -143,15 +136,11 @@ class TravelProcessingService:
         # -----------------------------------------------------
 
         for document in documents:
-
             try:
-
                 self.process_single_document(
                     document["documentId"]
                 )
-
                 succeeded += 1
-
             except Exception as ex:
 
                 failed += 1
@@ -166,7 +155,6 @@ class TravelProcessingService:
         # -----------------------------------------------------
 
         print("\nBuilding Timeline...")
-
         timeline = self.timeline_service.build_timeline(
             travel_id
         )
@@ -178,11 +166,8 @@ class TravelProcessingService:
         print("\nRunning Fraud Detection...")
 
         fraud_analysis = self.fraud_service.analyze_travel(
-
             user_id=user_id,
-
             travel_id=travel_id,
-
             expense_lines=expense_lines
         )
 
@@ -191,14 +176,9 @@ class TravelProcessingService:
         return {
 
             "travelId": travel_id,
-
             "documentsProcessed": len(documents),
-
             "documentsSucceeded": succeeded,
-
             "documentsFailed": failed,
-
             "timeline": timeline,
-
             "fraudAnalysis": fraud_analysis
         }

@@ -11,11 +11,16 @@ AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 AZURE_STORAGE_CONTAINER = os.getenv("AZURE_STORAGE_CONTAINER")
 
 # ==============================
-# MongoDB
+# MongoDB collection for documents
 # ==============================
 MONGODB_CONNECTION_STRING = os.getenv("MONGODB_CONNECTION_STRING")
 MONGODB_DATABASE = os.getenv("MONGODB_DATABASE")
 MONGODB_DOCUMENT_COLLECTION = os.getenv("MONGODB_DOCUMENT_COLLECTION")
+
+# ==============================
+# MongoDB collection for documents
+# ==============================
+MONGODB_TRAVEL_COLLECTION = os.getenv("MONGODB_TRAVEL_COLLECTION")
 
 # ==============================
 # Azure Document Intelligence

@@ -4,6 +4,7 @@ from app.builders.travel_context_builder import TravelContextBuilder
 from app.prompts.fraud_prompt import FraudPrompt
 from app.infrastructure.azure_openai import llm
 from app.validators.fraud_response_validator import FraudResponseValidator
+from app.repositories.travel_repository import TravelRepository
 import json
 
 
@@ -14,6 +15,8 @@ class FraudService:
         self.repository = DocumentRepository()
 
         self.timeline_service = TimelineService()
+
+        self.trvelRepository = TravelRepository()
 
     def analyze_travel(
         self,
@@ -42,15 +45,10 @@ class FraudService:
         # -----------------------------
 
         travel_context = TravelContextBuilder.build(
-
             user_id=user_id,
-
             travel_id=travel_id,
-
             documents=documents,
-
             expense_lines=expense_lines,
-
             timeline=timeline
         )
 
@@ -64,7 +62,7 @@ class FraudService:
             fraud_result
         )
 
-        self.repository.update_fraud_result(
+        self.trvelRepository.update_fraud_analysis(
             travel_id,
             validated
         )
