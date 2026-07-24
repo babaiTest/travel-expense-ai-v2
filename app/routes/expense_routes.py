@@ -1,3 +1,5 @@
+import logging
+logger = logging.getLogger(__name__)
 from fastapi import APIRouter, UploadFile, File, Form
 from typing import List,Annotated
 import json
@@ -27,7 +29,7 @@ async def validate_expense_api(
     files: List[UploadFile] = File(...)
 ):
     try:
-
+        logger.info("========== Travel Processing Started ==========")
         # ------------------------------------------
         # Create Travel collection if it does not exist
         travel_repository.create_travel(
@@ -44,26 +46,24 @@ async def validate_expense_api(
         # Upload all documents to Azure Blob Storage
         # Step 1: Upload documents
         # ------------------------------------------
-        uploaded_documents = await storage_service.upload_documents(
+        await storage_service.upload_documents(
             user_id=user_id,
             travel_id=travel_id,
             files=files
         )
+        #logger.info("Uploading completed.")
 
         # Step 2: Process travel
         result = travel_processing_service.process_travel(        
         user_id=user_id,
         travel_id=travel_id,
-        expense_lines=expense_lines
+        expense_lines=expense_data
     )
 
         # ------------------------------------------
         # Temporary response
         # ------------------------------------------
-        return {
-            "success": True,
-            "result": result
-        }
+        return result
 
     except Exception as ex:
         return {

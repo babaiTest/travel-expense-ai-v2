@@ -1,0 +1,127 @@
+[
+  {
+    "expense_id": "EXP001",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Flight",
+    "description": "Flight from Delhi to Singapore",
+    "merchant": "Singapore Airlines",
+    "expense_date": "2026-06-10",
+    "currency": "USD",
+    "amount": 520.00
+  },
+  {
+    "expense_id": "EXP002",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Hotel",
+    "description": "Hotel accommodation",
+    "merchant": "Marina Bay Hotel",
+    "expense_date": "2026-06-10",
+    "currency": "USD",
+    "amount": 180.00
+  },
+  {
+    "expense_id": "EXP003",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Taxi",
+    "description": "Airport to hotel",
+    "merchant": "Grab",
+    "expense_date": "2026-06-10",
+    "currency": "SGD",
+    "amount": 35.50
+  },
+  {
+    "expense_id": "EXP004",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Meal",
+    "description": "Business dinner with client",
+    "merchant": "Skyline Restaurant",
+    "expense_date": "2026-06-11",
+    "currency": "SGD",
+    "amount": 82.40
+  },
+  {
+    "expense_id": "EXP005",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Taxi",
+    "description": "Hotel to client office",
+    "merchant": "Grab",
+    "expense_date": "2026-06-11",
+    "currency": "SGD",
+    "amount": 18.60
+  },
+  {
+    "expense_id": "EXP006",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Internet",
+    "description": "Hotel Wi-Fi",
+    "merchant": "Marina Bay Hotel",
+    "expense_date": "2026-06-11",
+    "currency": "USD",
+    "amount": 15.00
+  },
+  {
+    "expense_id": "EXP007",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Meal",
+    "description": "Lunch during client meeting",
+    "merchant": "Business Cafe",
+    "expense_date": "2026-06-12",
+    "currency": "SGD",
+    "amount": 24.30
+  },
+  {
+    "expense_id": "EXP008",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Taxi",
+    "description": "Client office to hotel",
+    "merchant": "Grab",
+    "expense_date": "2026-06-12",
+    "currency": "SGD",
+    "amount": 19.80
+  },
+  {
+    "expense_id": "EXP009",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Flight",
+    "description": "Flight from Singapore to Delhi",
+    "merchant": "Singapore Airlines",
+    "expense_date": "2026-06-13",
+    "currency": "USD",
+    "amount": 515.00
+  }
+]
+
+=================
+[
+  {
+    "expense_id": "EXP001",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Flight",
+    "description": "Flight from Delhi to New York",
+    "merchant": "World Vector Airlines",
+    "expense_date": "2024-08-22",
+    "currency": "USD",
+    "amount": 520.00
+  },
+  {
+    "expense_id": "EXP002",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Flight",
+    "description": "Flight from New York to Delhi",
+    "merchant": "Skyliner Airways",
+    "expense_date": "2024-08-22",
+    "currency": "USD",
+    "amount": 520.00
+  }
+]

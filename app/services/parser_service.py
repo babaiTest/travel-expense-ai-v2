@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger(__name__)
+
 from app.repositories.document_repository import DocumentRepository
 from app.prompts.parser_prompt import build_parser_prompt
 from app.infrastructure.azure_openai import llm
@@ -30,6 +33,7 @@ class ParserService:
         ParserResponseValidator.validate(parsed_data)
 
         self.document_repository.update_document_parsed_data(document_id, parsed_data)
-        #print(response.content)
+        logger.info("Updated document parsed data in MongoDB.")
+        print("Updated document parsed data in MongoDB.")
         #return ocr_text
         return parsed_data

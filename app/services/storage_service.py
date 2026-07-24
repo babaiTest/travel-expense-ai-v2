@@ -88,7 +88,7 @@ async def upload_documents(
             "modifiedAt": datetime.utcnow()
         }
         repository.save_document(document_metadata)
-
+        print("Uploaded document metadata saved to MongoDB.")
         # --------------------------------------------------
         # Store metadata for downstream services
         # --------------------------------------------------
