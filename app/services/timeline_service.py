@@ -33,7 +33,7 @@ class TimelineService:
         timeline.sort(
             key=lambda x: (
                 x["date"],
-                x.get("time") or ""
+                x.get("time") or "" 
             )
         )
 
