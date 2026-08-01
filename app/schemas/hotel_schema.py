@@ -1,17 +1,28 @@
 HOTEL_SCHEMA = """
 {
     "documentType": "HotelInvoice",
-    "data":
-    {
+    "data": {
         "hotelName": "",
         "guestName": "",
-        "checkInDate": "",
-        "checkOutDate": "",
         "city": "",
         "country": "",
-        "totalAmount": "",
+
+        "checkInDate": "",
+        "checkOutDate": "",
+        "numberOfNights": 0,
+
+        "roomType": "",
+
+        "invoiceNumber": "",
+        "bookingReference": "",
+
         "currency": "",
-        "invoiceNumber": ""
+        "roomCharge": 0,
+        "taxAmount": 0,
+        "totalAmount": 0,
+
+        "paymentStatus": "",
+        "paymentMethod": ""
     }
 }
 """

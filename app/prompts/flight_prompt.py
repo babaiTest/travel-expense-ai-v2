@@ -1,24 +1,48 @@
-from app.schemas.flight_schema import FLIGHT_SCHEMA
-
-def build_flight_prompt(ocr_text: str):
+def build_flight_prompt(ocr_text: str) -> str:
 
     return f"""
-You are an AI assistant that extracts data from airline boarding passes and flight tickets.
+You are an expert AI specialized in extracting structured information from airline boarding passes and flight tickets.
 
-Return ONLY valid JSON.
+Your task is to identify the document type first.
 
-Use EXACTLY this schema:
+If the document is NOT a flight ticket or boarding pass, return:
 
-{FLIGHT_SCHEMA}
+{{
+    "documentType": "Unknown",
+    "data": {{}}
+}}
 
-Rules:
+Extraction Rules:
 
-- Do not invent values.
-- Use null when unavailable.
-- Convert travelDate to YYYY-MM-DD.
-- Convert arrivalDate to YYYY-MM-DD.
-- Use 24-hour time.
-- Split airports from cities when possible.
+- Return ONLY valid JSON.
+- Never explain your answer.
+- Use null for missing values.
+- Dates must use YYYY-MM-DD.
+- Preserve airline name exactly.
+- Preserve passenger name exactly.
+- Extract airport codes separately from city names.
+- Do not guess values.
+
+Required JSON:
+
+{{
+    "documentType": "FlightTicket",
+    "data": {{
+        "travelerName": "",
+        "departureCity": "",
+        "departureAirport": "",
+        "arrivalCity": "",
+        "arrivalAirport": "",
+        "flightNumber": "",
+        "travelDate": "",
+        "departureTime": "",
+        "arrivalDate": null,
+        "arrivalTime": null,
+        "seatNumber": "",
+        "travelClass": "",
+        "airline": ""
+    }}
+}}
 
 OCR Text:
 
