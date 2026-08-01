@@ -6,9 +6,15 @@ from app.infrastructure.azure_openai import llm
 from app.services.validation_service import ValidationService
 from app.services.timeline_service import TimelineService
 from app.services.travel_processing_service import TravelProcessingService
+from app.infrastructure.mongodb import travel_collection
 
-#print("Connected successfully!")
-#print("Database Name:", database.name)
+print("Before find_one")
+
+result = travel_collection.find_one({})
+
+print("After find_one")
+
+print(result)
 
 #obj = DocumentRepository()
 #document = obj.get_document_by_id("4279479d-8031-4e0b-aa13-f6776ff3fa57")
@@ -45,9 +51,9 @@ from app.services.travel_processing_service import TravelProcessingService
 # timeline = timeline_service.build_timeline("TRV1001")
 # print(timeline)
 
-service = TravelProcessingService()
-result = service.process_travel(
-    "EMP101",
-    "TRV1001"
-)
-print(result)
+# service = TravelProcessingService()
+# result = service.process_travel(
+#     "EMP101",
+#     "TRV1001"
+# )
+# print(result)

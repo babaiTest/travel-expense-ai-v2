@@ -33,7 +33,8 @@ class TravelRepository:
         Returns:
             dict: Travel document
         """
-
+        print(self.collection)
+        print(type(self.collection))
         existing = self.collection.find_one(
             {
                 "travelId": travel_id
