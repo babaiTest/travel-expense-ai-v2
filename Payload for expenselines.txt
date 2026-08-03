@@ -125,3 +125,40 @@
     "amount": 520.00
   }
 ]
+
+============
+[
+  {
+    "expense_id": "EXP001",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Flight",
+    "description": "Flight from Delhi to New York",
+    "merchant": "World Vector Airlines",
+    "expense_date": "2024-08-22",
+    "currency": "USD",
+    "amount": 520.00
+  },
+  {
+	"expense_id": "EXP002",
+	"travel_id": "TRV1001",
+	"employee_id": "EMP1001",
+	"category": "Hotel",
+	"description": "Hotel stay in New York",
+	"hotel": "THE GOTHAM GRAND",
+	"expense_date": "",
+    "currency": "USD",
+    "amount": 17,662.31
+  },
+  {
+    "expense_id": "EXP003",
+    "travel_id": "TRV1001",
+    "employee_id": "EMP1001",
+    "category": "Flight",
+    "description": "Flight from New York to Delhi",
+    "merchant": "Skyliner Airways",
+    "expense_date": "2024-08-22",
+    "currency": "USD",
+    "amount": 520.00
+  }
+]

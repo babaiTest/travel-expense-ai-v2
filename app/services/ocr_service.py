@@ -24,17 +24,21 @@ class OCRService:
         blob_name = document["blobName"]
 
         file_bytes = download_document(blob_name)
+        image_bytes: bytes | None = file_bytes
+        content_type = document["contentType"]
 
-        if self._is_image_too_large(file_bytes):
-            print("Large image detected.")
+        if content_type.startswith("image/"):
+            if self._is_image_too_large(file_bytes):
+                print("Large image detected.")
 
-            image_bytes = self._compress_image(
-                file_bytes
-            )
-            print(
-                f"Compressed Size = {len(image_bytes)/(1024*1024):.2f} MB"
-            )
-
+                image_bytes = self._compress_image(
+                    file_bytes
+                )
+                print(
+                    f"Compressed Size = {len(image_bytes)/(1024*1024):.2f} MB"
+                )
+        elif content_type == "application/pdf":
+            image_bytes = file_bytes
         poller = document_intelligence_client.begin_analyze_document(
         "prebuilt-read",
         body=image_bytes

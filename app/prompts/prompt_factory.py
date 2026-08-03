@@ -1,6 +1,6 @@
 from app.prompts.flight_prompt import build_flight_prompt
 from app.prompts.hotel_prompt import build_hotel_prompt
-from app.prompts.cab_prompt import build_cab_prompt
+#from app.prompts.cab_prompt import build_cab_prompt
 
 
 class PromptFactory:
