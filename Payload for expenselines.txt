@@ -148,7 +148,7 @@
 	"hotel": "THE GOTHAM GRAND",
 	"expense_date": "",
     "currency": "USD",
-    "amount": 17,662.31
+    "amount": 17662.31
   },
   {
     "expense_id": "EXP003",
