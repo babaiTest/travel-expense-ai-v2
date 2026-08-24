@@ -2,10 +2,9 @@ from app.repositories.document_repository import DocumentRepository
 from app.services.timeline_service import TimelineService
 from app.builders.travel_context_builder import TravelContextBuilder
 from app.prompts.fraud_prompt import FraudPrompt
-from app.infrastructure.azure_openai import llm
-from app.validators.fraud_response_validator import FraudResponseValidator
+from app.infrastructure.structured_llm import invoke_structured
+from app.schemas.fraud_output import FraudAnalysisResult
 from app.repositories.travel_repository import TravelRepository
-import json
 
 
 class FraudService:
@@ -54,13 +53,8 @@ class FraudService:
 
         prompt = FraudPrompt.build(travel_context)
 
-        response = llm.invoke(prompt)
-
-        fraud_result = json.loads(response.content)
-
-        validated = FraudResponseValidator.validate(
-            fraud_result
-        )
+        fraud_result = invoke_structured(prompt, FraudAnalysisResult)
+        validated = fraud_result.model_dump(mode="json")
 
         self.trvelRepository.update_fraud_analysis(
             travel_id,

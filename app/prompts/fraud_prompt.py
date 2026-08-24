@@ -106,28 +106,6 @@ HIGH
 - Personal expenses claimed as business expenses.
 - Manipulated or conflicting travel evidence.
 
--------------------------
-Output Format
--------------------------
-
-Return ONLY valid JSON.
-
-{{
-    "summary": "...",
-
-    "riskAssessment": {{
-        "riskLevel": "LOW | MEDIUM | HIGH",
-        "fraudScore": 0,
-        "recommendation": "APPROVE | MANUAL_REVIEW | REJECT"
-    }},
-
-    "observations": [],
-
-    "potentialIssues": [],
-
-    "confidence": 0.0
-}}
-
 Travel Context:
 
 {json.dumps(travel_context, indent=2)}
