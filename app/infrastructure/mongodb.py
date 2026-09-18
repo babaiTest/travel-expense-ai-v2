@@ -13,3 +13,5 @@ document_collection = database[
 travel_collection = database[
     config.MONGODB_TRAVEL_COLLECTION
 ]
+
+rag_document_collection = database["rag_documents"]
